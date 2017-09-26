@@ -1,26 +1,33 @@
+
 <?php
-    require_once('database.php');
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
 
-    // Get category ID
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
 
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
 
-    //***the commented lines below removed cause not needed in this example but maybe useful for next assignment one. 
-    // Get name for current category
-    //$query = "SELECT * FROM categories
-    //          WHERE categoryID = $category_id";
-    //$category = $db->query($query);
-    //$category = $category->fetch();
-    //$category_name = $category['categoryName'];
-
-    // Get all categories
-    //$query = 'SELECT * FROM categories
-    //          ORDER BY categoryID';
-    //$categories = $db->query($query);
-
-    // Get customer for selected category
-    $query = "SELECT firstName, lastName FROM customers order by lastName";
-    $customers = $db->query($query);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
 
