@@ -1,9 +1,9 @@
 
 <?php
 $servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDB";
+$username = "mgs_user";
+$password = "pa55word";
+$dbname = "shopDB";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$sql = "SELECT firstName, lastName FROM customers order by lastName";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
